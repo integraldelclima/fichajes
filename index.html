@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Registro de Jornada · Integral del Clima</title>
+  <meta name="description" content="Registro de jornada de Integral del Clima, S.L.">
+
+  <!-- Seguridad: la página solo puede cargar sus propios archivos y hablar con el servidor de Google -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:;
+                 connect-src https://script.google.com https://script.googleusercontent.com;
+                 manifest-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+  <meta name="referrer" content="no-referrer">
+
+  <!-- App instalable en la pantalla de inicio del móvil -->
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#0072BC">
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Fichajes">
+
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <div class="franja-marca" aria-hidden="true"></div>
+
+  <main class="app">
+
+    <!-- ═══════════ VISTA: ACCESO ═══════════ -->
+    <section id="vista-login" class="vista" aria-labelledby="titulo-login" hidden>
+      <div class="tarjeta tarjeta-login">
+        <img class="logo" src="img/logo.svg" alt="Integral del Clima" width="240" height="56">
+        <h1 id="titulo-login" class="titulo">Registro de jornada</h1>
+
+        <form id="form-login" novalidate>
+          <div class="campo">
+            <label for="campo-codigo">Código de empleado</label>
+            <div class="campo-con-boton">
+              <input id="campo-codigo" name="codigo" type="password"
+                     inputmode="numeric" autocomplete="current-password"
+                     maxlength="6" pattern="[0-9]{6}" required
+                     aria-describedby="ayuda-codigo">
+              <button id="boton-ver-codigo" type="button" class="boton-ver"
+                      aria-controls="campo-codigo" aria-pressed="false">Ver</button>
+            </div>
+            <p id="ayuda-codigo" class="ayuda">6 cifras. Es personal: no lo compartas.</p>
+          </div>
+
+          <p id="error-login" class="mensaje mensaje-error" role="alert" hidden></p>
+
+          <button id="boton-entrar" type="submit" class="boton boton-primario">Entrar</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ═══════════ VISTA: INICIO (provisional hasta la Fase 3B) ═══════════ -->
+    <section id="vista-inicio" class="vista" aria-labelledby="saludo" hidden>
+      <header class="cabecera">
+        <img class="logo-pequeno" src="img/logo.svg" alt="Integral del Clima" width="132" height="31">
+        <button id="boton-salir" type="button" class="boton-texto">Cerrar sesión</button>
+      </header>
+
+      <div class="tarjeta">
+        <p class="etiqueta">Sesión iniciada</p>
+        <h1 id="saludo" class="saludo"></h1>
+        <p id="nombre-completo" class="subtitulo"></p>
+        <p id="insignia-admin" class="insignia" hidden>Administrador</p>
+      </div>
+
+      <div class="tarjeta tarjeta-aviso">
+        <p>Aquí aparecerá la pantalla de fichaje (Fase 3B).</p>
+      </div>
+
+      <button id="boton-panel" type="button" class="boton boton-secundario" hidden disabled>
+        Panel de administración · próximamente
+      </button>
+    </section>
+
+  </main>
+
+  <!-- Capa de "cargando" (visible al abrir hasta saber si hay sesión) -->
+  <div id="capa-carga" class="capa-carga">
+    <div class="caja-carga" role="status" aria-live="polite">
+      <div class="spinner" aria-hidden="true"></div>
+      <p id="texto-carga">Cargando…</p>
+    </div>
+  </div>
+
+  <noscript>
+    <p class="mensaje mensaje-error noscript">Esta app necesita JavaScript activado en el navegador.</p>
+  </noscript>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
