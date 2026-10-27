@@ -12,5 +12,20 @@ window.CONFIG_APP = Object.freeze({
   TIEMPO_MAX_MS: 30000,
 
   // Longitud del código de empleado
-  LONGITUD_CODIGO: 6
+  LONGITUD_CODIGO: 6,
+
+  // Tiempo máximo para obtener la ubicación al fichar (milisegundos).
+  // Pasado este tiempo se ficha igualmente, marcado como "sin ubicación".
+  GPS_TIEMPO_MAX_MS: 15000,
+
+  // Segundos que se muestra la confirmación tras fichar
+  CONFIRMACION_SEG: 8,
+
+  // Versión del aviso de protección de datos. DEBE coincidir con
+  // CONFIG.AVISO_RGPD_VERSION del servidor (Config.gs). Si cambias el texto
+  // del aviso en index.html, cambia la fecha aquí y en el servidor.
+  AVISO_VERSION: '2026-10-27',
+
+  // true mientras el texto del aviso no lo haya validado quien lleve protección de datos
+  AVISO_BORRADOR: true
 });
