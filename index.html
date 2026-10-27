@@ -55,22 +55,102 @@
       </div>
     </section>
 
-    <!-- ═══════════ VISTA: INICIO (provisional hasta la Fase 3B) ═══════════ -->
-    <section id="vista-inicio" class="vista" aria-labelledby="saludo" hidden>
+    <!-- ═══════════ VISTA: AVISO DE PROTECCIÓN DE DATOS (antes del primer fichaje) ═══════════ -->
+    <section id="vista-aviso" class="vista" aria-labelledby="titulo-aviso" hidden>
+      <div class="tarjeta">
+        <p class="etiqueta">Antes de tu primer fichaje</p>
+        <h1 id="titulo-aviso" class="titulo-izq">Información sobre protección de datos</h1>
+        <p id="aviso-borrador" class="insignia insignia-aviso" hidden>Borrador pendiente de validar</p>
+
+        <div class="texto-legal">
+          <h2>Quién trata tus datos</h2>
+          <p><strong>Integral del Clima, S.L.</strong><br>
+             <span class="sin-corte">CIF B-96714555</span><br>
+             C/ Montichelvo, 24 bajo, 46006 Valencia<br>
+             fichajes.integraldelclima@gmail.com</p>
+
+          <h2>Para qué</h2>
+          <p>Para cumplir la obligación legal de llevar el <strong>registro diario de jornada</strong>
+             (art. 34.9 del Estatuto de los Trabajadores).</p>
+
+          <h2>Qué se guarda cada vez que fichas</h2>
+          <ul>
+            <li>Tu identificación y si es una entrada o una salida.</li>
+            <li>La fecha y la hora, que pone el servidor (no tu móvil).</li>
+            <li>El tipo de dispositivo y navegador desde el que fichas.</li>
+            <li><strong>Tu ubicación en ese momento</strong>, con su precisión, si lo permites.</li>
+          </ul>
+
+          <h2>Sobre la ubicación</h2>
+          <p>Se toma <strong>solo al pulsar el botón de fichar</strong>. La app <strong>nunca</strong>
+             sigue tu posición en ningún otro momento. Si no das permiso, puedes fichar igualmente
+             y el fichaje queda marcado como "sin ubicación".</p>
+
+          <h2>Base legal y conservación</h2>
+          <p>Cumplimiento de una obligación legal (art. 6.1.c del RGPD), con la información previa
+             sobre geolocalización que exige el art. 90 de la LOPDGDD. Los registros se conservan
+             <strong>4 años</strong>.</p>
+
+          <h2>Quién puede verlos</h2>
+          <p>Tú, la oficina de la empresa, tus representantes legales y la Inspección de Trabajo.
+             Los datos se almacenan en los servicios de Google que usa la empresa.</p>
+
+          <h2>Tus derechos</h2>
+          <p>Puedes pedir acceso, rectificación, supresión, limitación u oposición escribiendo a
+             <strong>fichajes.integraldelclima@gmail.com</strong>. También puedes reclamar ante la
+             Agencia Española de Protección de Datos (www.aepd.es).</p>
+        </div>
+
+        <p id="error-aviso" class="mensaje mensaje-error" role="alert" hidden></p>
+        <button id="boton-aceptar-aviso" type="button" class="boton boton-primario">
+          He leído la información
+        </button>
+        <button id="boton-salir-aviso" type="button" class="boton-texto boton-centrado">Cerrar sesión</button>
+      </div>
+    </section>
+
+    <!-- ═══════════ VISTA: FICHAJE ═══════════ -->
+    <section id="vista-fichaje" class="vista" aria-labelledby="saludo" hidden>
       <header class="cabecera">
         <img class="logo-pequeno" src="img/logo.svg" alt="Integral del Clima" width="132" height="31">
-        <button id="boton-salir" type="button" class="boton-texto">Cerrar sesión</button>
+        <button type="button" class="boton-texto boton-salir">Cerrar sesión</button>
       </header>
 
+      <nav class="pestanas" aria-label="Secciones">
+        <button type="button" class="pestana activa" data-ir="vista-fichaje" aria-current="page">Fichar</button>
+        <button type="button" class="pestana" data-ir="vista-mis-fichajes">Mis fichajes</button>
+      </nav>
+
       <div class="tarjeta">
-        <p class="etiqueta">Sesión iniciada</p>
-        <h1 id="saludo" class="saludo"></h1>
-        <p id="nombre-completo" class="subtitulo"></p>
-        <p id="insignia-admin" class="insignia" hidden>Administrador</p>
+        <div class="fila-saludo">
+          <h1 id="saludo" class="saludo"></h1>
+          <span id="insignia-admin" class="insignia" hidden>Administrador</span>
+        </div>
+        <p id="fecha-hoy" class="subtitulo"></p>
       </div>
 
-      <div class="tarjeta tarjeta-aviso">
-        <p>Aquí aparecerá la pantalla de fichaje (Fase 3B).</p>
+      <div class="tarjeta tarjeta-reloj">
+        <p id="reloj" class="reloj" aria-label="Hora actual">--:--:--</p>
+        <p id="estado-jornada" class="estado" role="status" aria-live="polite"></p>
+        <p id="aviso-olvido" class="mensaje mensaje-atencion" hidden></p>
+      </div>
+
+      <button id="boton-fichar" type="button" class="boton boton-fichar" disabled>Cargando…</button>
+
+      <p id="info-ubicacion" class="info-ubicacion" aria-live="polite"></p>
+      <p id="error-fichaje" class="mensaje mensaje-error" role="alert" hidden></p>
+
+      <!-- Horas de hoy (se actualizan cada segundo mientras estás dentro) -->
+      <div class="tarjeta tarjeta-hoy">
+        <div class="fila-dato">
+          <span class="dato-etiqueta">Trabajado hoy</span>
+          <span id="hoy-trabajado" class="dato-valor">—</span>
+        </div>
+        <div id="fila-hoy-extra" class="fila-dato" hidden>
+          <span class="dato-etiqueta">Horas extra hoy</span>
+          <span id="hoy-extra" class="dato-valor dato-extra">—</span>
+        </div>
+        <p id="hoy-mensaje" class="hoy-mensaje" hidden></p>
       </div>
 
       <button id="boton-panel" type="button" class="boton boton-secundario" hidden disabled>
@@ -78,7 +158,103 @@
       </button>
     </section>
 
+    <!-- ═══════════ VISTA: MIS FICHAJES ═══════════ -->
+    <section id="vista-mis-fichajes" class="vista" aria-labelledby="titulo-semana" hidden>
+      <header class="cabecera">
+        <img class="logo-pequeno" src="img/logo.svg" alt="Integral del Clima" width="132" height="31">
+        <button type="button" class="boton-texto boton-salir">Cerrar sesión</button>
+      </header>
+
+      <nav class="pestanas" aria-label="Secciones">
+        <button type="button" class="pestana" data-ir="vista-fichaje">Fichar</button>
+        <button type="button" class="pestana activa" data-ir="vista-mis-fichajes" aria-current="page">Mis fichajes</button>
+      </nav>
+
+      <div class="selector-semana">
+        <button id="boton-semana-atras" type="button" class="boton-flecha" aria-label="Semana anterior">‹</button>
+        <h1 id="titulo-semana" class="titulo-semana">Esta semana</h1>
+        <button id="boton-semana-adelante" type="button" class="boton-flecha" aria-label="Semana siguiente">›</button>
+      </div>
+
+      <div class="tarjeta tarjeta-totales">
+        <div class="total">
+          <span class="dato-etiqueta">Trabajado</span>
+          <span id="total-trabajado" class="total-valor">—</span>
+        </div>
+        <div class="total">
+          <span class="dato-etiqueta">Horas extra</span>
+          <span id="total-extra" class="total-valor">—</span>
+        </div>
+      </div>
+      <p id="total-pendientes" class="mensaje mensaje-atencion" hidden></p>
+
+      <p id="error-mis-fichajes" class="mensaje mensaje-error" role="alert" hidden></p>
+      <div id="lista-dias" class="lista-dias" aria-live="polite"></div>
+
+      <button type="button" class="boton boton-secundario" disabled>
+        Solicitar corrección · próximamente
+      </button>
+    </section>
+
   </main>
+
+  <!-- Confirmación tras fichar -->
+  <div id="capa-confirmacion" class="capa-confirmacion" hidden>
+    <div class="caja-confirmacion" role="alertdialog" aria-labelledby="conf-titulo" aria-describedby="conf-detalle">
+      <div id="conf-icono" class="conf-icono" aria-hidden="true">✓</div>
+      <p id="conf-titulo" class="conf-titulo"></p>
+      <p id="conf-hora" class="conf-hora"></p>
+      <p id="conf-detalle" class="conf-detalle"></p>
+      <button id="boton-conf-ok" type="button" class="boton boton-primario">Aceptar</button>
+    </div>
+  </div>
+
+  <!-- Confirmación de horas extra (tras fichar la salida, o desde "Mis fichajes") -->
+  <div id="capa-extra" class="capa-confirmacion" hidden>
+    <div class="caja-confirmacion caja-extra" role="dialog" aria-modal="true" aria-labelledby="extra-titulo">
+      <p id="extra-salida" class="extra-salida" hidden></p>
+
+      <!-- Paso 1: ¿es correcto? -->
+      <div id="extra-paso-1">
+        <p id="extra-titulo" class="conf-titulo">Horas extra</p>
+        <p class="conf-detalle">Según tus fichajes, <span id="extra-dia">hoy</span> has hecho</p>
+        <p id="extra-calculada" class="conf-hora"></p>
+        <p class="conf-detalle">de horas extra. ¿Es correcto?</p>
+        <p id="error-extra-1" class="mensaje mensaje-error" role="alert" hidden></p>
+        <button id="boton-extra-si" type="button" class="boton boton-primario">Sí, es correcto</button>
+        <button id="boton-extra-menos" type="button" class="boton boton-secundario espacio-arriba">Hice menos</button>
+        <button id="boton-extra-luego" type="button" class="boton-texto boton-centrado">Responder más tarde</button>
+      </div>
+
+      <!-- Paso 2: ¿cuántas? -->
+      <div id="extra-paso-2" hidden>
+        <p class="conf-titulo">¿Cuántas horas extra hiciste?</p>
+        <p class="conf-detalle">Como máximo <span id="extra-maximo"></span>.</p>
+        <div class="selector-tiempo">
+          <label>Horas
+            <select id="extra-horas" class="selector"></select>
+          </label>
+          <label>Minutos
+            <select id="extra-minutos" class="selector"></select>
+          </label>
+        </div>
+        <p id="error-extra-2" class="mensaje mensaje-error" role="alert" hidden></p>
+        <button id="boton-extra-continuar" type="button" class="boton boton-primario">Continuar</button>
+        <button id="boton-extra-volver-1" type="button" class="boton-texto boton-centrado">Volver</button>
+      </div>
+
+      <!-- Paso 3: ¿seguro? -->
+      <div id="extra-paso-3" hidden>
+        <p class="conf-titulo">¿Estás seguro?</p>
+        <p class="conf-detalle">Se registrarán</p>
+        <p id="extra-elegida" class="conf-hora"></p>
+        <p class="conf-detalle">de horas extra <span id="extra-de-calculadas"></span>. Después no se podrá cambiar.</p>
+        <p id="error-extra-3" class="mensaje mensaje-error" role="alert" hidden></p>
+        <button id="boton-extra-confirmar" type="button" class="boton boton-primario">Confirmar</button>
+        <button id="boton-extra-volver-2" type="button" class="boton-texto boton-centrado">Volver</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Capa de "cargando" (visible al abrir hasta saber si hay sesión) -->
   <div id="capa-carga" class="capa-carga">

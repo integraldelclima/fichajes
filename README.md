@@ -25,6 +25,17 @@ Google con varias cuentas iniciadas en el navegador ("No se puede abrir el archi
 | `manifest.webmanifest`  | Permite instalar la app en la pantalla de inicio       |
 | `img/`                  | Logo e iconos                                          |
 
+## Pantallas
+- **Acceso**: código de empleado de 6 cifras.
+- **Aviso de protección de datos**: solo antes del primer fichaje (o si cambia el texto).
+- **Fichar**: reloj, estado, botón entrada/salida, ubicación y tarjeta "Hoy"
+  (trabajado y horas extra en tiempo real).
+- **Mis fichajes**: semana a semana, con totales y días con horas extra por confirmar.
+- **Confirmación de horas extra**: al fichar la salida, o después desde Mis fichajes.
+
+Los cálculos los hace siempre el servidor. La pantalla solo adelanta el contador
+de "Hoy" entre una consulta y otra, usando la hora del servidor.
+
 ## Publicar un cambio
 ```
 git add .
@@ -32,6 +43,12 @@ git commit -m "Descripción del cambio"
 git push
 ```
 GitHub Pages actualiza la web en 1-2 minutos.
+
+## Aviso de protección de datos
+El texto está en `index.html` (vista `vista-aviso`). Si se cambia:
+1. Cambiar la fecha `AVISO_VERSION` en `js/config.js`.
+2. Cambiar la misma fecha en el servidor (`AVISO_RGPD_VERSION` en `Config.gs`) y publicar nueva versión.
+3. Cuando lo valide quien lleve protección de datos, poner `AVISO_BORRADOR: false`.
 
 ## Normas
 - Nunca poner aquí datos personales, códigos de empleado ni secretos.
